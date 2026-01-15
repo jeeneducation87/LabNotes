@@ -64,9 +64,12 @@
 ![alt text](image-6.png)
 
 `sudo losetup -fP secret_volume.img`
+
 ![alt text](image-7.png)
+
 Узнаем имя устройства:
 `losetup -a`
+
 ![alt text](image-8.png)
 
 Запускаем форматирование в LUKS и задаем пароль:
