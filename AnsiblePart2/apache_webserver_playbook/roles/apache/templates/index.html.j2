@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>System Information</title>
+  </head>
+  <body>
+    <h1>System Information</h1>
+    <ul>
+      <li>Hostname: {{ ansible_hostname }}</li>
+      <li>IP Address: {{ ansible_default_ipv4.address }}</li>
+      <li>CPU: {{ ansible_processor_cores }} cores</li>
+      <li>RAM: {{ ansible_memtotal_mb }} MB</li>
+      <li>Disk Size: {{ ansible_devices.vda.size }}</li>
+    </ul>
+  </body>
+</html>

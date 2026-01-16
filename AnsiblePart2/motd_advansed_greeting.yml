@@ -1,0 +1,25 @@
+---
+- name: Configure MOTD with IP, hostname, and greeting
+  hosts: servers
+  become: yes
+  tasks:
+    - name: Gather IP address
+      ansible.builtin.setup:
+        gather_subset:
+          - network
+
+    - name: Print default IPv4 address
+      debug:
+        var: ansible_facts.default_ipv4.address
+
+    - name: Print hostname
+      debug:
+        var: ansible_hostname
+
+    - name: Set custom MOTD
+      ansible.builtin.template:
+        src: motd.j2
+        dest: /etc/motd
+      vars:
+        ip_address: "{{ ansible_facts.default_ipv4.address }}"
+        hostname: "{{ ansible_hostname }}"

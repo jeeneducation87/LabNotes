@@ -1,0 +1,15 @@
+---
+- name: install_mc
+  hosts: servers
+  become: yes
+  tasks:
+    - name: Install MC
+      apt:
+        name: mc
+        state: present
+      register: result
+
+    - name: MC installation info
+      debug:
+        msg: "MC has been successfully installed."
+      when: result.changed

@@ -1,0 +1,14 @@
+---
+- name: Update MOTD
+  hosts: servers
+  become: yes
+  vars:
+    motd_message: "Welcome to your server! Have a great day!"
+  tasks:
+    - name: Update the MOTD file
+      copy:
+        content: "{{ motd_message }}"
+        dest: /etc/motd
+        owner: root
+        group: root
+        mode: '0644'

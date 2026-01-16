@@ -1,0 +1,6 @@
+[webservers]
+192.168.1.10 ansible_user=your_user ansible_ssh_private_key_file=/path/to/your/private/key
+192.168.1.11 ansible_user=your_user ansible_ssh_private_key_file=/path/to/your/private/key
+
+[databases]
+192.168.1.20 ansible_user=your_user ansible_ssh_private_key_file=/path/to/your/private/key

@@ -1,0 +1,8 @@
+---
+- name: Create a file with content
+  hosts: servers
+  tasks:
+    - name: Create /tmp/netology.txt with content
+      copy:
+        dest: /tmp/netology.txt
+        content: "I like Linux"

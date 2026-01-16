@@ -1,0 +1,8 @@
+<html>
+    <body>
+    CPU: {{ ansible_processor[2] }} x core: {{ ansible_processor_cores }}<br/>
+    RAM: {{ ansible_memtotal_mb }} Mb<br/>
+    HDD: {{ ansible_devices.sda.size }}<br/>
+    IP4: {{ ansible_default_ipv4.address }}
+    </body>
+</html>

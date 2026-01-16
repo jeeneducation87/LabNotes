@@ -1,0 +1,15 @@
+---
+- name: install_nano
+  hosts: servers
+  become: yes
+  tasks:
+    - name: nano_install
+      apt:
+        name: nano
+        state: present
+      register: result
+
+    - name: nano_info
+      debug:
+        msg: "nano has been successfully installed"
+      when: result.changed

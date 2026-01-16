@@ -1,0 +1,12 @@
+---
+- name: check_ssh_service
+  hosts: all
+  become: yes
+  tasks:
+    - name: check ssh service state
+      ansible.builtin.service_facts:
+
+    - name: show ssh service state
+      debug:
+        msg: "show ssh service {{ 'ssh service is running' if services['ssh'].state == 'running' else 'ssh service is not running' }} on host {{ inventory_hostname }}"
+      when: "'ssh' in services"

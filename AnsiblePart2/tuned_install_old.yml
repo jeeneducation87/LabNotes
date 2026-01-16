@@ -1,0 +1,17 @@
+---
+- name: installation tuned
+  hosts: servers
+  become: yes
+
+  tasks:
+    - name: install apt tuned
+      apt:
+        name: tuned
+        state: present
+        update_cache: yes
+
+    - name: run tuned as service
+      systemd:
+        name: tuned
+        state: started
+        enabled: yes

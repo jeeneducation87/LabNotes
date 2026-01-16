@@ -1,0 +1,32 @@
+---
+- name: installation tuned
+  hosts: servers
+  become: yes
+
+  tasks:
+    - name: install apt tuned
+      apt:
+        name: tuned
+        state: present
+        update_cache: yes
+
+    - name: run tuned as service
+      systemd:
+        name: tuned
+        state: started
+        enabled: yes
+
+    - name: check if tuned is running
+      command: systemctl is-active tuned
+      register: tuned_status
+      ignore_errors: yes
+
+    - name: display tuned status
+      debug:
+        msg: "Tuned is running on {{ inventory_hostname }}"
+      when: tuned_status.stdout == "active"
+
+    - name: display tuned not running
+      debug:
+        msg: "Tuned is NOT running on {{ inventory_hostname }}"
+      when: tuned_status.stdout != "active"

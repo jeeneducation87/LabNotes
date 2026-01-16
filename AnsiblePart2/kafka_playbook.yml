@@ -1,0 +1,31 @@
+---
+- name: Playbook for downloading and unziping Apache Kafka
+  hosts: servers
+  tasks:
+    - name: create temp directory
+      tempfile:
+        state: directory
+        suffix: kafka
+      register: temp_dir
+
+    - name: downloading archive Apache Kafka
+      get_url:
+        url: https://dlcdn.apache.org/kafka/3.9.0/kafka_2.13-3.9.0.tgz
+        dest: "{{ temp_dir.path }}/kafka.tgz"
+
+    - name: create directory
+      file:
+        path: /home/splatonov/roles/kafka
+        state: directory
+        mode: '0755'
+
+    - name: unzip content to directory
+      unarchive:
+        src: "{{ temp_dir.path }}/kafka.tgz"
+        dest: /home/splatonov/roles/kafka
+        remote_src: yes
+
+    - name: delete temp directory
+      file:
+        path: "{{ temp_dir.path }}"
+        state: absent

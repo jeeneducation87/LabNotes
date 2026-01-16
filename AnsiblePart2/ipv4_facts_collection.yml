@@ -1,0 +1,13 @@
+---
+- name: Проверка сети
+  hosts: servers
+  gather_facts: yes
+
+  tasks:
+    - name: Debug network facts
+      debug:
+        var: ansible_facts
+
+    - name: Получение IP-адреса
+      debug:
+        msg: "IP-адрес по умолчанию: {{ ansible_facts.default_ipv4.address | default('Нет доступного адреса') }}"

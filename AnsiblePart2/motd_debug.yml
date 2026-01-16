@@ -1,0 +1,16 @@
+---
+- hosts: servers
+  gather_facts: yes
+  tasks:
+    - name: Gather network facts
+      ansible.builtin.setup:
+        gather_subset:
+          - network
+
+    - name: Print default IPv4 address
+      debug:
+        var: ansible_facts.default_ipv4.address
+
+    - name: Print hostname
+      debug:
+        var: ansible_hostname
