@@ -23,7 +23,7 @@
 
 ------
 
-## Задание 1. Знакомимся с GitLab и Bitbucket 
+## Задание 1. Знакомимся с GitLab и GitHub 
 
 В работе достаточно использовать два репозитория: GitHub и GitLab.
 
@@ -35,36 +35,45 @@
 Также некоторые распределённые команды используют такой принцип работы, когда каждый разработчик имеет свой репозиторий, а в основной репозиторий пушатся только конечные результаты 
 работы над задачами. 
 
-### Решение GitLab
+### Решение 1
 
-Создадим аккаунт в GitLab, если у вас его ещё нет:
+- Создаем репозиторий "devops-netology" в GitHub
 
-1. GitLab. Для [регистрации](https://gitlab.com/users/sign_up)  можно использовать аккаунт Google, GitHub и другие. 
-1. После регистрации или авторизации в GitLab создайте новый проект, нажав на ссылку `Create a projet`. 
-Желательно назвать также, как и в GitHub — `devops-netology` и `visibility level`, выбрать `Public`.
-1. Галочку `Initialize repository with a README` лучше не ставить, чтобы не пришлось разрешать конфликты.
-1. Если вы зарегистрировались при помощи аккаунта в другой системе и не указали пароль, то увидите сообщение:
-`You won't be able to pull or push project code via HTTPS until you set a password on your account`. 
-Тогда перейдите [по ссылке](https://gitlab.com/profile/password/edit) из этого сообщения и задайте пароль. 
-Если вы уже умеете пользоваться SSH-ключами, то воспользуйтесь этой возможностью (подробнее про SSH мы поговорим в следующем учебном блоке).
-1. Перейдите на страницу созданного вами репозитория, URL будет примерно такой:
-https://gitlab.com/YOUR_LOGIN/devops-netology. Изучите предлагаемые варианты для начала работы в репозитории в секции
-`Command line instructions`. 
-1. Запомните вывод команды `git remote -v`.
-1. Из-за того, что это будет наш дополнительный репозиторий, ни один вариант из перечисленных в инструкции (на странице 
-вновь созданного репозитория) нам не подходит. Поэтому добавляем этот репозиторий, как дополнительный `remote`, к созданному
-репозиторию в рамках предыдущего домашнего задания:
-`git remote add gitlab https://gitlab.com/YOUR_LOGIN/devops-netology.git`.
-1. Отправьте изменения в новый удалённый репозиторий `git push -u gitlab main`.
-1. Обратите внимание, как изменился результат работы команды `git remote -v`.
+![alt text](image.png)
 
-#### Как изменить видимость репозитория в  GitLab — сделать его публичным 
+- Создаем проект "devops-netology" в GitLab
 
-* На верхней панели выберите «Меню» -> «Проекты» и найдите свой проект.
-* На левой боковой панели выберите «Настройки» -> «Основные».
-* Разверните раздел «Видимость» -> «Функции проекта» -> «Разрешения».
-* Измените видимость проекта на Public.
-* Нажмите «Сохранить изменения».
+![alt text](image-1.png)
+
+- Создаем файл для проверки
+`New-Item -Path "README.md" -ItemType "file" -Value "# Homework DevOps"`
+`git add README.md`
+`git commit -m "First commit"`
+
+![alt text](image-2.png)
+
+- Подключаем GitHub (как основной origin):
+`git remote add origin https://github.com/jeeneducation87/devops-netology.git`
+`git branch -M main`
+`git push -u origin main`
+
+![alt text](image-3.png)
+
+- Подключаем GitLab (как дополнительный gitlab):
+`git remote add gitlab https://gitlab.com/netology_git/devops-netology.git`
+`git push -u gitlab main`
+
+![alt text](image-4.png)
+
+- Проверяем что удаленные репозитории успешно добавлены и файл README.md загружен в оба репозитория:
+`git remote -v`
+
+![alt text](image-5.png)
+
+![alt text](image-7.png)
+
+![alt text](image-8.png)
+
 
 ## Задание 2. Теги
 
@@ -76,6 +85,29 @@ https://gitlab.com/YOUR_LOGIN/devops-netology. Изучите предлагае
 1. Перейдите на страницу просмотра тегов в GitHab (и в других репозиториях) и посмотрите, чем отличаются созданные теги. 
     * в GitHub — https://github.com/YOUR_ACCOUNT/devops-netology/releases;
     * в GitLab — https://gitlab.com/YOUR_ACCOUNT/devops-netology/-/tags;
+
+
+## Решение 2. Теги
+
+- Выполняем команды в терминале:
+
+1. Легковесный тег. Отправляем тег на оба сервера:
+`git tag v0.0`
+`git push origin v0.0`
+`git push gitlab v0.0`
+
+![alt text](image-9.png)
+![alt text](image-10.png)
+![alt text](image-11.png)
+
+2. Аннотированный тег. Отправляем тег на оба сервера:
+`git tag -a v0.1 -m "Annotation for v0.1"`
+`git push origin v0.1`
+`git push gitlab v0.1`
+
+![alt text](image-12.png)
+![alt text](image-13.png)
+![alt text](image-14.png)
 
 
 ## Задание 3. Ветки 
@@ -91,6 +123,28 @@ https://gitlab.com/YOUR_LOGIN/devops-netology. Изучите предлагае
 1. Теперь измените содержание файла `README.md`, добавив новую строчку.
 1. Отправьте изменения в репозиторий и посмотрите, как изменится схема на странице https://github.com/YOUR_ACCOUNT/devops-netology/network 
 и как изменится вывод команды `git log`.
+
+## Решение 3. Ветки 
+
+1. Создадим ветку fix и отправим её на GitHub:
+`git switch -c fix`
+`git push -u origin fix`
+
+![alt text](image-15.png)
+
+2. Внесем изменения:
+`Add-Content README.md "New line for branch test"`
+`git add .`
+`git commit -m "Update README in fix branch"`
+`git push`
+
+![alt text](image-16.png)
+
+`git log --graph --all`
+
+![alt text](image-17.png)
+
+![alt text](image-18.png)
 
 ## Задание 4. Упрощаем себе жизнь
 
@@ -111,5 +165,18 @@ https://gitlab.com/YOUR_LOGIN/devops-netology. Изучите предлагае
 
 *В качестве результата работы по всем заданиям приложите ссылки на ваши репозитории в GitHub, GitLab.  
  
+
+## Решение 4. Упрощаем себе жизнь
+
+В моем случае использую VSCODE для удобства работы с репозиториями.
+
+
+
+Ссылки на созданные в рамках работы репозитории: 
+[GitHub](https://www.jetbrains.com/help/pycharm/commit-and-push-changes.html)
+[GitLab](https://www.jetbrains.com/help/pycharm/commit-and-push-changes.html)
+
+
+
 ----
 
