@@ -190,8 +190,8 @@ File -> Add Folder to Workspace... -> C:\Code\GIT\devops-netology
 ![alt text](image-23.png)
 
 Ссылки на созданные в рамках работы репозитории: 
-[GitHub](https://www.jetbrains.com/help/pycharm/commit-and-push-changes.html)
-[GitLab](https://www.jetbrains.com/help/pycharm/commit-and-push-changes.html)
+[GitHub](https://github.com/jeeneducation87/devops-netology/tree/main)
+[GitLab](https://gitlab.com/netology_git/devops-netology/-/blob/main/README.md)
 
 ----
 
