@@ -179,7 +179,7 @@ File -> Add Folder to Workspace... -> C:\Code\GIT\devops-netology
 
 ![alt text](image-20.png)
 
-3. Файл README.md в списке изменений и помечем "М"
+3. Файл README.md в списке изменений и помечен "М"
 
 ![alt text](image-21.png)
 
