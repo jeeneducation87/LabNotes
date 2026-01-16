@@ -169,14 +169,29 @@
 ## Решение 4. Упрощаем себе жизнь
 
 В моем случае использую VSCODE для удобства работы с репозиториями.
+Добавим директорию в VSCODE в общее рабочее пространство, чтобы увидеть в UI.
+File -> Add Folder to Workspace... -> C:\Code\GIT\devops-netology
 
+![alt text](image-19.png)
 
+1. Нажимаем в VS Code Source Control (ветвистое дерево)
+2. Изменяем файл README.md в директории devops-netology и сохраняем CTRL+S
+
+![alt text](image-20.png)
+
+3. Файл README.md в списке изменений и помечем "М"
+
+![alt text](image-21.png)
+
+4. Нажимаем Commit&push
+
+![alt text](image-22.png)
+
+![alt text](image-23.png)
 
 Ссылки на созданные в рамках работы репозитории: 
 [GitHub](https://www.jetbrains.com/help/pycharm/commit-and-push-changes.html)
 [GitLab](https://www.jetbrains.com/help/pycharm/commit-and-push-changes.html)
-
-
 
 ----
 
