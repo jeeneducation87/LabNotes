@@ -191,3 +191,5 @@
 
 ![alt text](image-27.png)
 
+Ссылки на репозиторий: 
+[GitHub](https://github.com/jeeneducation87/devops-netology/tree/main)
