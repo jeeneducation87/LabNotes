@@ -236,6 +236,56 @@ config.v2.json
 В качестве ответа приложите скриншоты консоли, где видно все введенные команды и их вывод.
 
 
+## Решение 4
+
+- Запуск контейнеров с Volume:
+
+     
+1. CentOS
+    
+`docker run -d -v $(pwd):/data centos:7 sleep infinity`
+
+![alt text](image-24.png)
+
+2. Debian
+    
+`docker run -d -v $(pwd):/data debian:stable sleep infinity`
+
+![alt text](image-25.png)
+
+- Создание файлов: 
+
+Узнаем ID контейнера CentOS:    
+
+`docker ps`
+
+![alt text](image-26.png)
+
+7126f5e2f97d   centos:7
+
+`docker exec -it 7126f5e2f97d sh -c "echo 'Hello from CentOS' > /data/centos_file.txt"`
+
+![alt text](image-27.png)
+
+- Создание файла на хосте:
+   
+`touch host_file.txt`
+
+Узнаем ID контейнера Debian:
+
+50e340ad7ade   debian:stable
+     
+`docker exec -it 50e340ad7ade ls -la /data`
+
+![alt text](image-28.png)
+
+`docker exec -it 50e340ad7ade cat /data/centos_file.txt`
+
+![alt text](image-29.png)
+
+Файлы centos_file.txt, host_file.txt и Dockerfile видно на скриншотах, так как мы монтировали текущую директорию /data к обоим контейнерам.
+
+
 ## Задача 5
 
 1. Создайте отдельную директорию(например /tmp/netology/docker/task5) и 2 файла внутри него.
@@ -282,6 +332,87 @@ services:
 7. Удалите любой из манифестов компоуза(например compose.yaml).  Выполните команду "docker compose up -d". Прочитайте warning, объясните суть предупреждения и выполните предложенное действие. Погасите compose-проект ОДНОЙ(обязательно!!) командой.
 
 В качестве ответа приложите скриншоты консоли, где видно все введенные команды и их вывод, файл compose.yaml , скриншот portainer c задеплоенным компоузом.
+
+## Решение 5
+
+- Подготовка файлов:
+
+`mkdir -p /tmp/netology/docker/task5 && cd /tmp/netology/docker/task5`
+
+![alt text](image-30.png)
+
+Создаем compose.yaml и docker-compose.yaml с содержимым.
+
+![alt text](image-31.png)
+ 
+`docker compose up -d`
+`docker compose ps`
+
+![alt text](image-32.png)
+
+Будет запущен compose.yaml (Portainer). Согласно спецификации Docker Compose v2, файл compose.yaml является предпочтительным и используется по умолчанию, если найден. 
+Файл docker-compose.yaml игнорируется при наличии первого. Warning на скриншоте об этом сообщает.
+
+- Редактирование compose.yaml для запуска обоих файлов (Include):
+    
+![alt text](image-33.png)
+
+`docker compose up -d`
+
+![alt text](image-34.png)
+
+Запустились оба файла compose.yaml и docker-compose.yaml
+
+- Локальный Registry: 
+
+Тегируем и пушим образ из первой задачи:
+     
+`docker tag custom-nginx:1.0.0 localhost:5000/custom-nginx:latest`
+`docker push localhost:5000/custom-nginx:latest`
+
+![alt text](image-35.png)
+
+- Portainer и Deploy:
+Открываем UI Portainer http://192.168.122.32:9000 (настроил HAProxy для доступа до VM c контейнерами)
+Создаем админа - Get Started (Local environment).
+
+![alt text](image-36.png)
+
+
+- Deploy compouse (Stacks -> Add stack):
+
+![alt text](image-37.png)
+
+![alt text](image-38.png)
+- Инспекция контейнера:
+
+![alt text](image-39.png)
+
+![alt text](image-40.png)
+
+- Warning про Orphans:
+
+Удалиение compose.yaml:
+
+`rm compose.yaml`
+
+![alt text](image-41.png)
+
+`docker compose up -d`
+
+> WARN[0000] Found orphan containers ([task5-portainer-1]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up. 
+
+![alt text](image-42.png)
+
+Docker Compose видит запущенные контейнеры, которые принадлежат этому проекту (по названию директории), но не описанные в текущем файле конфигурации (docker-compose.yaml, который остался) и предупреждает, что они "потеряны" - сироты.
+
+`docker compose up -d --remove-orphans`
+
+![alt text](image-43.png)
+
+`docker compose down`
+
+![alt text](image-44.png)
 
 ---
 
