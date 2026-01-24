@@ -31,7 +31,21 @@ See 'snap info docker' for additional versions.
 4. (Необязательная часть, *) Изучите код приложения и добавьте управление названием таблицы через ENV переменную.
 
 ## Решение 1
-dfe
+
+- Создание Dockerfile.python и .dockerignore:
+
+![alt text](image.png)
+
+![alt text](image-1.png)
+
+- Запускаем сборку:
+
+`cd shvirtd-example-python`
+`docker build -f Dockerfile.python -t python-app:test .`
+
+![alt text](image-2.png)
+
+![alt text](image-3.png)
 
 
 ## Задача 3
@@ -49,6 +63,51 @@ dfe
 5. Подключитесь к БД mysql с помощью команды ```docker exec -ti <имя_контейнера> mysql -uroot -p<пароль root-пользователя>```(обратите внимание что между ключем -u и логином root нет пробела. это важно!!! тоже самое с паролем) . Введите последовательно команды (не забываем в конце символ ; ): ```show databases; use <имя вашей базы данных(по-умолчанию example)>; show tables; SELECT * from requests LIMIT 10;```.
 
 6. Остановите проект. В качестве ответа приложите скриншот sql-запроса.
+
+## Решение 3
+
+- Создаем compose.yaml: 
+     
+![alt text](image-4.png)
+
+- Запуск (Тест):
+   
+`docker compose up -d`
+
+![alt text](image-5.png)
+
+- Проверка работы:
+
+`curl -L http://127.0.0.1:8080`
+
+Потребовалось перезапустить контейнер для инициализации БД:
+
+`docker compose restart web`
+
+![alt text](image-6.png)
+
+Вернулся JSON с IP и временем.
+
+- Заходим в контейнер БД:
+
+`docker exec -it shvirtd-db-1 mysql -uroot -pYtReWq4321`
+
+![alt text](image-7.png)
+
+- Внутри MySQL:
+
+`use example; SELECT * from requests LIMIT 10; exit;`
+
+![alt text](image-8.png)
+
+- Останавливаем проект:
+
+`docker compose down`
+
+![alt text](image-9.png)
+
+Код рабочий.
+
 
 ## Задача 4
 1. Запустите в Yandex Cloud ВМ (вам хватит 2 Гб Ram).
