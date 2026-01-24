@@ -78,7 +78,7 @@ See 'snap info docker' for additional versions.
 
 - Проверка работы:
 
-`curl -L http://127.0.0.1:8080`
+`curl -L http://127.0.0.1:8090`
 
 Потребовалось перезапустить контейнер для инициализации БД:
 
@@ -108,7 +108,6 @@ See 'snap info docker' for additional versions.
 
 Код рабочий.
 
-
 ## Задача 4
 1. Запустите в Yandex Cloud ВМ (вам хватит 2 Гб Ram).
 2. Подключитесь к Вм по ssh и установите docker.
@@ -117,10 +116,46 @@ See 'snap info docker' for additional versions.
 5. (Необязательная часть) Дополнительно настройте remote ssh context к вашему серверу. Отобразите список контекстов и результат удаленного выполнения ```docker ps -a```
 6. Повторите SQL-запрос на сервере и приложите скриншот и ссылку на fork.
 
+## Решение 4
+
+- Создаем скрипт deploy.sh:
+
+![alt text](image-10.png)
+
+Запуск на VM:
+
+`ssh vm32`
+`nano deploy.sh`
+
+- Делаем скрипт deploy.sh исполняемым:
+
+`chmod +x deploy.sh`
+
+- Запускаем скрипт deploy.sh:
+
+`./deploy.sh`
+
+![alt text](image-11.png)
+
+![alt text](image-12.png)
+
+- Проверка работы:
+
+`curl -L http://127.0.0.1:8090`
+
+![alt text](image-13.png)
+
+Соединение успешно установлено.
+
 ## Задача 6
 Скачайте docker образ ```hashicorp/terraform:latest``` и скопируйте бинарный файл ```/bin/terraform``` на свою локальную машину, используя dive и docker save.
 Предоставьте скриншоты  действий .
 
+## Решение 6
+
 ## Задача 6.1
 Добейтесь аналогичного результата, используя docker cp.  
 Предоставьте скриншоты  действий .
+
+## Решение 6.1
+
