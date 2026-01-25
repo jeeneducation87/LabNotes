@@ -153,9 +153,63 @@ See 'snap info docker' for additional versions.
 
 ## Решение 6
 
+1. Сохраняем образ
+`dive hashicorp/terraform:latest`
+`dive hashicorp/terraform:latest`
+
+![alt text](image-14.png)
+
+`docker images`
+`docker save cb8f439f777d -o terraform.tar`
+
+![alt text](image-15.png)
+
+2. Распаковываем
+`mkdir tf_temp`
+`tar -xf terraform.tar -C tf_temp`
+
+![alt text](image-16.png)
+
+![alt text](image-17.png)
+
+3. Ищем слой с файлом terraform перебором:
+
+for file in tf_temp/blobs/sha256/*; do 
+  if tar -tf "$file" 2>/dev/null | grep -q "bin/terraform"; then 
+    echo "НАЙДЕН ФАЙЛ: $file"; 
+    break;
+  fi 
+done
+
+![alt text](image-18.png)
+
+НАЙДЕН ФАЙЛ: tf_temp/blobs/sha256/d7ce41a85ad466f7c820e6abb07f005d4903828399fab2ccd4a8aff3d7e6a0f2
+
+4. Распаковываем этот конкретный слой
+tar -xf tf_temp/blobs/sha256/d7ce41a85ad466f7c820e6abb07f005d4903828399fab2ccd4a8aff3d7e6a0f2/layer.tar -C tf_temp bin/terraform
+
+![alt text](image-19.png)
+
+5. Проверяем
+`ls -l tf_temp/bin/terraform`
+
+![alt text](image-20.png)\
+
+`./tf_temp/bin/terraform --version`
+
+![alt text](image-21.png)
+
 ## Задача 6.1
 Добейтесь аналогичного результата, используя docker cp.  
 Предоставьте скриншоты  действий .
 
 ## Решение 6.1
 
+- Извлечение через cp
+ 
+`docker create --name tf-extract hashicorp/terraform:latest`
+`docker cp tf-extract:/bin/terraform ./terraform_bin`
+`docker rm tf-extract`
+`./terraform_bin --version`
+
+![alt text](image-22.png)
